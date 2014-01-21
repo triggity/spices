@@ -28,7 +28,9 @@ require.config({
 });
 
 require([
-    ], function() {
+    'widgets/rate'
+    ], function(Rate) {
   console.log('done');
+  var a = new Rate();
 
 });
