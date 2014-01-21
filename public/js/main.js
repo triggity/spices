@@ -1,15 +1,34 @@
 
 require.config({
   paths: {
-    'react': 'vendor/react/react.min'
+    'underscore': 'vendor/underscore/underscore',
+    'backbone': 'vendor/backbone/backbone',
+    'jquery': 'vendor/jquery/jquery-2.0.3.min',
+  
+  },
+  shim: {
+    "underscore": {
+      "exports": "_"
+    },
+    "backbone": {
+      "deps": ["underscore", "jquery"],
+      "exports": "Backbone"
+    },
+    "oauth": {
+      "exports": "oauth"
+    },
+    "tweenlite": {
+      "deps": ["cssplugin"],
+      "exports": "tweenlite"
+    },
+    "socketio": {
+      "exports": "io"
+    }
   }
 });
 
 require([
-  'react',
-  'rate'
-    ], function(React, Rate) {
-  var rates = React.renderComponent(Rate.Rate({}), document.getElementById('rates'));
+    ], function() {
   console.log('done');
 
 });
