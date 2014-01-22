@@ -21,17 +21,30 @@ require([
   'backbone',
   'widgets/rate'
   ], function(Backbone, Rate) {
+
+  var start = function() {
+    var b = new Backbone.Model({rate: 50});
+    var b2 = new Backbone.Model({rate: 50});
+    var a = new Rate({model: b}, {title: 'dwarf droplets', period: 'droplets/picometer'});
+    var a2 = new Rate({model: b2}, {title: 'lion whisperers', period: 'deaths/inch'});
+    $('#rates').append(a.el);
+    $('#rates').append(a2.el);
+    setInterval(function() {
+      function randomNum() {
+        return Math.round(Math.random() * 100)
+      }
+      b.set('rate', randomNum)
+      b2.set('rate', randomNum)
+    },3000);
+  
+  };
   
   $(document).ready(function() {
-    var b = new Backbone.Model({rate: 50});
-    var a = new Rate({model: b}, {title: 'some metric', period: 'dwarfs/picometer'});
-    console.log(a);
-    $('#rates').append('<div></div>');
-    $('#rates').click(function() {
-      console.log('asdfsdf');
-    });
-    $('#rates').append(a.el);
-    setInterval(function() { newRate = b.get('rate') + 50; b.set('rate', newRate)}, 3000);
+
+    $('#gobutton').click(function() {
+      start()
+    
+    });  
   
   });
 
