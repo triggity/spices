@@ -33,19 +33,16 @@ require([
       function randomNum() {
         return Math.round(Math.random() * 100)
       }
-      b.set('rate', randomNum)
+      $.ajax({url: 'http://localhost:5000/data'}).done(function(resp) {
+        b.set('rate', resp.foo)
+      });
       b2.set('rate', randomNum)
     },3000);
   
   };
   
   $(document).ready(function() {
-
-    $('#gobutton').click(function() {
-      start()
-    
-    });  
-  
+    $('#gobutton').click(start);
   });
 
 });

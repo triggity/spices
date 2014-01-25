@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>hi</title>
+    <script data-main="{{ url_for('static', filename='js/main')}}" src="{{ url_for('static', filename='js/vendor/requirejs/require.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/application.css') }}">
+  </head>
+  <body>
+    <div id="buttons">
+      <button type="button" id="gobutton">Go</button>
+    </div>
+    <div id="rates"></div>
+  </body>
+
+</html>
