@@ -1,4 +1,4 @@
-
+//configuration crap
 require.config({
   paths: {
     'underscore': 'vendor/underscore/underscore',
@@ -17,12 +17,15 @@ require.config({
   }
 });
 
+//program kickoff
 require([
   'backbone',
   'widgets/rate'
   ], function(Backbone, Rate) {
-
-  var start = function() {
+  var prepInputs = function() {
+    return $('input').val();
+  };
+  var populate = function(data) {
     var b = new Backbone.Model({rate: 50});
     var b2 = new Backbone.Model({rate: 50});
     var a = new Rate({model: b}, {title: 'dwarf droplets', period: 'droplets/picometer'});
@@ -30,17 +33,23 @@ require([
     $('#rates').append(a.el);
     $('#rates').append(a2.el);
     setInterval(function() {
-      function randomNum() {
-        return Math.round(Math.random() * 100)
-      }
-      $.ajax({url: 'http://localhost:5000/data'}).done(function(resp) {
-        b.set('rate', resp.foo)
+      var req = $.ajax({
+        url: 'http://localhost:5000/data',
+        type: 'POST',
+        data: data
       });
-      b2.set('rate', randomNum)
+      req.done(function(resp) {
+        b.set('rate', resp.foo)
+        b2.set('rate', resp.bar)
+      });
     },3000);
-  
   };
-  
+  var start = function() {
+    var data = prepInputs();
+    populate(data);
+
+  };
+  //kicks everything off once dom is ready 
   $(document).ready(function() {
     $('#gobutton').click(start);
   });

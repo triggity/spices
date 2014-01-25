@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from random import randint
 app = Flask(__name__)
 
@@ -6,10 +6,17 @@ app = Flask(__name__)
 def runner():
     return render_template('index.html')
 
-@app.route("/data")
+def rand():
+    return randint(2, 100)
+@app.route("/data", methods=['GET', 'POST'])
 def data():
-    myrand = randint(2, 100)
-    return jsonify({'foo': myrand})
+    if request.method == 'POST':
+        print request.form
+    output = {
+        'foo': rand(),    
+        'bar': rand()    
+    }
+    return jsonify(output)
 if __name__ == "__main__":
     app.debug = True
     app.run()
